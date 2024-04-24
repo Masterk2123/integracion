@@ -1,0 +1,63 @@
+
+    {% extends 'core/base.html' %}
+    {% load static %}
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'core/CSS/registro.css' %}">
+    {% endblock style %}
+    {% block content %}
+    <div>
+        <div  class="container-sm">
+            <section id="name1">
+                <h1 class="centrado text-center tamaño">Registro</h1>
+                <br>
+                <form method="POST" enctype="multipart/form-data"   class="login-form text-center " >
+                    {% csrf_token %}
+                    <div class="col-12">
+                        {% if form.imagen.value %}
+                        <img id="registrarme-imagen" src="/media/{{ form.imagen.value }}">
+                        {% else %}
+                        <img class="imagen" id="registrarme-imagen" src="{% static 'core/img/nuevorostro.png' %}"><br><br>
+                        {% endif %}
+                        {% for field in form %}
+                        
+                        <div>
+                            <label for="{{ field.id_for_label }}" class="form-label centrado">{{ field.label }}
+                                <div class="centrado input ">{{ field }}</div>
+                            </label>
+                        </div>
+                        <br>
+                        <br>
+                        
+                        {% endfor %}
+                        {% if form.errors %}
+                        <br>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ form.errors }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mt-2 mb-3">
+                        <button type="submit" class="btn btn-success stylebtn1"> Registrarme </button>
+                        <button type="reset" class="btn btn-primary stylebtn1"> Limpiar </button>
+                        <br><br>
+                    </div>
+                    <a style="color:white;" href="{% url 'ingresar' %}">¿ya tienes una cuenta?</a>
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                </form>
+            </section>
+        </div>
+    </div>
+   
+    {% endblock content %}
+    {% block script %}
+    <script src="{% static 'core/js/Validarfrom.js' %}"></script>
+    {% endblock script %}

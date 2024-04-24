@@ -1,0 +1,50 @@
+
+{% extends 'core/base.html' %}
+{% load static %}
+{% load custom_filters %}
+{% block content %}
+
+  <div class="container-fluid">
+    <!-- cuerpo de la pagina -->
+    <div  class="row">
+      <div id="txt1"  class="col-12">
+        <!-- titulo -->
+        <h1 class="stp1" style="color:white;">Ficha del Servicio </h1>
+<br>
+<br>
+<br>
+
+        <!-- productos -->
+        <div  class="container-sm">
+          <div class="row">
+            <div class="col-3">
+
+              <img style="margin-left:20px;"
+              width="400px"
+              height="300" 
+              src="/media/{{ imagen }}"
+              alt=""></div>
+
+            <div id="txt" 
+            style="color:white;"  
+            class="col-8"> 
+
+              <b style="color:white;" 
+              class="titulo-producto">{{ nombre }}
+              </b>
+              <p style="color:white;"><br>Descripción : <br> <br>
+
+              {{ descripcion }}<br> <br>
+              Precio:</p>
+              {{ precio|formatear_dinero  }}<br><br>
+              <button 
+              type="submit" 
+              class="btn btn-primary"
+              >Comprar ahora</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <br><br>
+      {% endblock content %}

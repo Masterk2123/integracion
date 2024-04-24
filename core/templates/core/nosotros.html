@@ -1,0 +1,90 @@
+  {% extends 'core/base.html' %}
+  {% load static %}
+  
+  {% block content %}
+    <div id="imgst">
+    <div class="container">
+      <div id="nosotros" class="row">
+        <div class="st4">
+          <!-- titulo -->
+          <h1>Nosotros</h1>
+          <p>Taller mecanico SERVIEXPRESS es una tineda online para las personas con necesidades automovilisticas.
+
+            en linea tenemos la mayor variedad en productos automovilisticos y servicios disponibles agendables directamente por la plataforma web </p>
+          <p>
+            Nuestro emprendimiento, es de calidad y estamos dedicados a la mantencion, arreglo, mejoras 
+            y calidad de productos de cualquier tipo de vehiculo.
+          </p>
+          <p>
+            En Chile, llegamos a todo Santiago y proximamente estaremos con cobertura nacional. Tenemos entregas el
+            mismo dia en 3 rutas diferentes para que elijas la que más te conviene. Además tenemos envios nacionales con
+            tiempos de entrega de 3 dias hábiles.
+          </p>
+          <p>
+            Desde el taller mecanico SERVIEXPRESS apoyamos y colaboramos de forma activa con las solicitudes de los clientes en sus necesidades
+            del vehiculo es por esto que se fundo esta empresa para brindarles la facilidad a las personas de tener una empresa confiable 
+            y de calidad que para nosotros es lo nuestra mayor prioridad y por esto te invitamos a suscribirte con una cuota mensual
+            de $3.000 y con ello obtendras un 5% de descuento en todas tus compras y solicitudes servicios para tu automovil
+          </p>
+          <p>
+            Te deseamos la mejor experiencia en nuestra tienda.
+          </p>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+      <div class=" col-sm-12 col-md-4">
+          <div id="imgst1" class="card mb-4 box-shadow">
+
+            <div class="text-center">
+              <img src="{% static 'core/img/gerent.jpg' %}" alt="">
+            </div>
+
+            <div  class="card-body">
+              <p class="card-text">
+                <b style="color:white;">Justo Cano</b>
+                <div class="lead text-secondary fw-bold">Desarrollador Back-end</div>
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+          <div id="imgst1" class="card mb-4 box-shadow">
+
+            <div class="text-center">
+              <img src="{% static 'core/img/hhhy.png' %}"
+              class="card-img-top producto-tamaño" alt=""></div>
+            
+            <div class="card-body">
+              <p class="card-text">
+                <b style="color:white;">Nicolás Loyola</b>
+                <div class="lead text-secondary fw-bold">Desarrollador Front-end</div>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-12 col-md-4">
+          <div id="imgst1" class="card mb-4 box-shadow">
+
+            <div class="text-center">
+              <img src="{% static 'core/img/marketing.png' %}" 
+              class="card-img-top producto-tamaño" alt="">
+            </div>
+            
+            <div class="card-body">
+              <p class="card-text">
+                <b style="color:white;" >Diego vargas</b>
+                <div class="lead text-secondary fw-bold">QA</div>
+              </p>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}

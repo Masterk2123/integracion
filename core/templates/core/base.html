@@ -1,0 +1,223 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    {% comment %} <link rel="stylesheet" href="{% static 'core/CSS/header.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'core/CSS/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'core/CSS/cosas.css' %}">
+    <title>TallerMecanico.cl</title>
+    {% block style %}
+
+    {% endblock style %}
+    {% comment %} <link rel="stylesheet" href="{% static 'core/CSS/style.css' %}"> {% endcomment %}
+</head>
+<body class="bodystyle1">
+    <!-- Menú superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
+    name="menu-superior"
+    id="menu-superior">
+
+        <div class="container-fluid">
+
+        <a class="navbar-brand-margin-end" 
+        style="padding-left:2em;"
+        href="{% url 'inicio' %}">
+
+        <img class="logo-glock log  d-inline-block align-text-top" 
+            width="150"
+            height="100"  
+            src="{% static 'core/img/logo.png' %}"
+            alt="Logo">
+        </a>
+        
+        <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+
+        <div  class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if not user.is_authenticated %}
+                <li class="nav-input">
+                    
+                    <a style="margin-left: 48px;" 
+                    class="nav-link active"
+                    aria-current="page"
+                    href="{% url 'registro' %}"
+                    >Registrarme</a>
+
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a style="margin-left: 38px;" 
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'nosotros' %}"
+                >Nosotros</a>
+            </li>
+            {% if not user.is_authenticated %}
+                <li class="nav-item">
+
+                    <a style="margin-left:35px;" 
+                    class="nav-link active"
+                    aria-current="page"
+                    href="{% url 'ingresar' %}"
+                    >Ingresar</a>
+
+                </li>  
+            {% endif %}
+            {% if user.is_authenticated  %}
+            <li class="nav-item">
+                <a class="nav-link active style="
+                style="margin-left: 30px;"
+                    aria-current="page"
+                    href="{% url 'reserva' %}"
+                    >Reserva</a>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated and user.is_staff or user.is_authenticated and user.is_superuser %}
+                <li class="nav-item">
+                    <a class="nav-link active style="
+                    style="margin-left: 30px;"
+                    aria-current="page" 
+                    href="{% url '_servicios' 'crear' '0' %}"
+                        >Gestion de servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active"
+                    style="margin-left: 30px;"
+                    aria-current="page" 
+                    href="{% url 'usuarios' 'crear' '0' %}"
+                        >Gestion de usuario</a>
+                </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link active"
+                    style="margin-left: 30px;"
+                    aria-current="page" 
+                    href="{% url 'salir' %}"
+                        >Cerrar Sesión</a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link " href="#" role="button" 
+                        aria-expanded="false" href="{% url 'ingresar' %}">
+                        {% if user.is_superuser %}
+                        <span class="text-danger fw-bold">
+                        {% elif user.is_staff %}
+                        <span class="text-success fw-bold">
+                        {% else %}
+                        <span>
+                        {% endif %}
+                        {{ user.first_name }} {{ user.last_name }}
+                        {% if user.perfil.subscrito %}
+                            (premium)
+                        {% endif %}
+                
+                
+            {% endif %}
+            
+
+            </ul>
+            <form method = "post" action = "{% url 'inicio' %}" class = "d-flex" role= "search">
+                {% csrf_token %}
+                <input class = "form-control me-2"
+                type = "search" 
+                placeholder = "Buscar servicio" 
+                aria-label = "Search"
+                id = "buscar" 
+                name = "buscar">
+                <button class = "btn btn-outline-success" style = "margin-right:100px; width:200px;"
+                type = "submit"
+                >Buscar</button>
+            </form>
+            </div>
+        </div>
+    </nav>
+    <br><br><br><br><br><br><br><br>
+    
+    {% block content %}
+    {% endblock content %}
+    <br>
+
+    
+    <footer id="footerContainer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Navegación</h3>
+                <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+                <li><a href="#">Contactanos</a></li>
+                <li><a href="#">Como Comprar</a></li>
+                <li><a href="#">Ofertas</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Medios de pago</h3>
+                <ul>
+                <li><a href="#">Tarjeta de crédito</a></li>
+                <li><a href="#">PayPal</a></li>
+                <li><a href="#">Transferencia bancaria</a></li>
+                <li><a href="#">Guía de Compra</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Necesitas ayuda</h3>
+                <ul>
+                <li><a href="#">Centro de ayuda</a></li>
+                <li><a href="#">Envianos un Mensaje</a></li>
+                <li><a href="#">Términos y Condiciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3 class="footer-section">Atención al cliente
+                <br><br>
+                <h3>Horarios:</h3>
+                </h3>
+                <P style="color: #fffbfb;">Lunes a viernes de 9:00 a 18:00 hrs.</P>
+                <br>
+            <ul>
+                <li>
+                <h3>Email:</h3>
+                <a href="#">Tallermecanico@gmail.com</a></li>
+                <br><br>
+                <li><h3>Direccion:</h3>
+                <a href="{% url 'nosotros' %}">Av. Manuel Montt 2024 Providencia, Santiago, Chile</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p> TallerMecanico.cl Desarrollado por <a style="color: white;" href="{% url 'nosotros' %}">Nosotros</a></p>
+        </div>
+        <div class="footer-bottom">
+            <p> <a  style="color: white; " href="{% url 'poblar' %}">Poblar servicos y usuarios</a></p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+
+    <script src="{% static 'core/js/script2.js' %}"></script>
+    {% block script %}
+
+    {% endblock script%}
+    
+</body>
+</html>

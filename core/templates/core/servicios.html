@@ -1,0 +1,108 @@
+
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div>
+    <div class="conntainer mt-3" id="registro">
+        <section >
+            <h1 style="padding-left: 100px;">Mantenimiento  de Servicios</h1>
+            <br>
+            <form method="POST" enctype="multipart/form-data"  class="row g-3 needs-validation" id="formulario3" action novalidate="novalidate">
+                {% csrf_token %}
+                <div class="container-fluid" >
+                    <div class="row">
+                        
+                        <div class="col-sm-12 col-md-6 stRegistro">
+                            {% for field in form %}
+                            <div class="mb-3  fw-bold">
+                                <label for="{{ field.id_for_label }}" class="form-label">
+                                    {{ field.label }}
+                                </label>
+                                {{ field }}
+                            </div>
+                            {% endfor %}
+                            
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            {% if form.imagen.value %}
+                            <img id="admin-producto-imagen" width="300px" height="300px" src="/media/{{ form.imagen.value }}">
+                            {% else %}
+                            <img id="admin-producto-imagen" src="{% static 'core/img/sin-imagen.png' %}">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stylebtn">
+                    
+                    <a class="btn btn-success stylebtn1" 
+                    href="{% url 'usuarios' 'crear' '0' %}"> Nuevo </a>
+                    {% if form.instance.id %}
+                    
+
+                    <a class="btn btn-danger stylebtn1"
+                    href = "{% url '_servicios' 'eliminar' form.instance.id %}"> Eliminar </a>
+                    {% endif %}
+
+                    <input class="btn btn-primary stylebtn1 "
+                    type="submit" value="Guardar">
+
+                    
+                </div> 
+
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button  class="btn-close"
+                    data-bs-dismiss="alert"
+                    type="button"
+                    aria-label="Close"
+                    ></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% if servicios %}
+<div class="table-responsive st5">
+    <table class="table table-striped table-sm st6">
+        <thead class="st6">
+            <tr class="st6">
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for servicio in servicios %}
+            <tr > 
+                <td id="name"> {{ servicio.id }} </td>
+                <td id="name"> {{ servicio.nombre }} </td>
+                <td id="name"> {{ servicio.descripcion }} </td>
+                <td id="name"> {{ servicio.precio }} </td>
+                <td id="name">
+                    <img id="name" src="/media/{{ servicio.imagen }}" class="" width="50px" height="50px" alt="">
+                </td>
+                <td id="name">
+                    <a href="{% url '_servicios' 'actualizar' servicio.id %}" class="btn btn-primary btn-sm boton_chico"> Editar </a>
+                </td>
+                <td id="name">
+                    <form method="delete">
+                        <a href="{% url '_servicios' 'eliminar' servicio.id %}" class="btn btn-danger btn-sm boton_chico"> Eliminar </a>
+                    </form>
+                </td> 
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'core/js/validarprodu.js' %}"></script>
+{% endblock script %}

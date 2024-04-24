@@ -1,0 +1,46 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'core/CSS/ingresar.css' %}">
+    <link rel="stylesheet" href="{% static 'core/CSS/cosas.css' %}">
+{% endblock style %}
+{% block content %}
+<div class="container">
+
+    <div  class="row justify-content-center">
+        <div class="col-6">
+        
+        <form method="POST" class="login-form" >
+            <h1 style="margin-bottom:10%;"> Ingresar a la tienda </h1>
+            {% csrf_token %} 
+            
+            {{ form.as_p }}
+            
+            <div class="form-input-material ">
+                <button id="btnn"type="submit" class="btn btn-primary"> Ingresar </button>
+            </div>
+            
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" 
+                    class="btn-primary btn-ghost" 
+                    data-bs-dismiss="alert" 
+                    aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            {% endif %}
+            
+        </form>
+
+        </div>
+    </div>
+</div>
+<br><br><br><br>
+
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'core/js/ValidarIn.js' %}"></script>
+{% endblock script %}
